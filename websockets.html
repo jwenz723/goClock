@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Clock</title>
+	<link href='https://fonts.googleapis.com/css?family=Orbitron' rel='stylesheet' type='text/css'>
+</head>
+<body style="background: black;">
+	<div id="currenttime" style="color: red; text-align: center; font-family:'Orbitron', sans-serif; font-size: 150px; width: 800px; border-radius: 5px; height: 50px; position: absolute; margin-top: -25px; margin-left: -400px; top: 50%; left: 50%;"></div>
+	<div>
+		<input id="alarmtime" type="text" />
+		<button onclick="send()">Set Alarm</button>
+	</div>
+	<script>
+		var alarmtime = document.getElementById("alarmtime");
+		var currenttime = document.getElementById("currenttime");
+		var socket = new WebSocket("ws://localhost:8080/echo");
+
+		socket.onopen = function () {
+			socket.send("start");
+		};
+
+		socket.onmessage = function (e) {
+			currenttime.innerHTML = e.data;
+		};
+
+		function send() {
+			socket.send(alarmtime.value);
+		}
+	</script>
+</body>
+</html>
