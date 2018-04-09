@@ -40,7 +40,7 @@ func main() {
 			go func(a string) {
 				for {
 					t := time.Now().Local()
-					s := t.Format("03:04")
+					s := t.Format("03:04:05")
 
 					if s == a {
 						// Write message back to browser
@@ -54,7 +54,7 @@ func main() {
 						}
 					}
 
-					time.Sleep(15 * time.Second)
+					time.Sleep(1 * time.Second)
 				}
 			}(alarmtime)
 		}
